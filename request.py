@@ -12,16 +12,19 @@ finalUrl = baseUrl + query + "&mode=TimelineTone&format=JSON"
 
 req = requests.get(url = finalUrl)
 
-data = req.json()
-#print(data)
+response = req.json()
+print(response)
 
 #plot the data
-xAxis = [key for key, value in data.items()] #TODO: how to get the correct data from the JSON object?
-yAxis = [value for key, value in data.items()]
-plt.grid(True)
+dataPoints = response['timeline'][0]['data']
+xAxis = [value for key, value in dataPoints] 
+#yAxis = [value for key, value in dataPoints['value']]
+#print(xAxis)
 
-plt.plot(xAxis, yAxis, color='blue', marker='o')
-plt.xlabel('Date')
-plt.ylabel('Average Tone')
+# plt.grid(True)
 
-plt.show()
+# plt.plot(xAxis, yAxis, color='blue', marker='o')
+# plt.xlabel('Date')
+# plt.ylabel('Average Tone')
+
+# plt.show()
