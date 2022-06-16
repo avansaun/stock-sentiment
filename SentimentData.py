@@ -7,11 +7,11 @@ import dateutil.parser
 class SentimentData():
 
     #----Get sentiment data from GDELT----
-    def QuerySentimentData():
-        searchPhrase = input("Stock Ticker Symbol or Company Name: ")
+    def QuerySentimentData(searchStr):
+        #searchPhrase = input("Stock Ticker Symbol or Company Name: ")
 
         baseUrl = "https://api.gdeltproject.org/api/v2/doc/doc?"
-        query = "query=%22" + searchPhrase + " %20stock" + "%22"
+        query = "query=%22" + searchStr + " %20stock" + "%22"
         finalUrl = baseUrl + query + "&mode=TimelineTone&format=JSON"
 
         req = requests.get(url = finalUrl)
@@ -47,6 +47,7 @@ class SentimentData():
         plt.show()
 
 
-    #----MAIN----
-    graphData = QuerySentimentData() #TODO: convert to __init__
-    GraphDataValues(graphData)
+    #----Get Sentiment Graph Data For Stock Symbol----
+    def GetSentimentData(tickerSymbol):
+        graphData = SentimentData.QuerySentimentData(tickerSymbol)
+        SentimentData.GraphDataValues(graphData)

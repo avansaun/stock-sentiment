@@ -1,5 +1,6 @@
 import tkinter
 import customtkinter
+from SentimentData import *
 
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("green")
@@ -26,21 +27,22 @@ class Gui(customtkinter.CTk):
         self.frame_right.grid(row=0, column=1, sticky="nswe", padx=20, pady=20)
 
         #----Text ("Entry") Input
-        self.entry = customtkinter.CTkEntry(
+        self.tckrSymbol = customtkinter.CTkEntry(
             master=self.frame_right,
             width=120,
-            placeholder_text="Enter Stock Ticker Symbol")
-        self.entry.grid(row=1, column=0, columnspan=2, pady=20, padx=20, sticky="we")
+            placeholder_text="Ticker Symbol")
+        self.tckrSymbol.grid(row=1, column=0, columnspan=2, pady=20, padx=20, sticky="we")
 
         #----Button----
-        self.button_1 = customtkinter.CTkButton(
+        self.searchBtn = customtkinter.CTkButton(
             master=self.frame_right,
             text="Search",
             command=self.button_event)
-        self.button_1.grid(row=2, column=0, pady=10, padx=20)
+        self.searchBtn.grid(row=2, column=0, pady=10, padx=20)
 
     def button_event(self):
-        print("Searching...")
+        print("Searching for " + self.tckrSymbol.get())
+        SentimentData.GetSentimentData(self.tckrSymbol.get())
 
 if __name__ == "__main__":
     app = Gui()
